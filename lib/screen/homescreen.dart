@@ -1,6 +1,9 @@
+import 'dart:io';
+import 'package:cameraflutter/screen/filesave.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'gallery.dart';
 
 class homescreen extends StatelessWidget {
@@ -40,7 +43,7 @@ class homescreen extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(75))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children:const [
+                  children: const [
                     Text(
                       'Camera',
                       style: TextStyle(fontSize: 20),
@@ -60,10 +63,10 @@ class homescreen extends StatelessWidget {
           ClipRect(
             child: InkWell(
               borderRadius: BorderRadius.circular(48),
-               onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (ctx) => const Gallery()));
-                },
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => const Gallery()));
+              },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -81,7 +84,7 @@ class homescreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(40))),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const[
+                    children: const [
                       Text(
                         'Gallery',
                         style: TextStyle(fontSize: 20),
@@ -109,6 +112,7 @@ class homescreen extends StatelessWidget {
     final imagedb = await Hive.openBox('imgstore');
     imagedb.add(image.path);
     await getimages();
+    await saveImage(File(image.path), basename(image.path));
   }
 }
 

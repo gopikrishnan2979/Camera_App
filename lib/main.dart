@@ -6,7 +6,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Hive.initFlutter();
   Hive.openBox('imgstore');
-
+  getimages();
   runApp(const MyApp());
 }
 
